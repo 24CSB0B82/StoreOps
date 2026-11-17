@@ -11,7 +11,8 @@
     "seed": "node src/db/seed.js",
     "db:reset": "node src/db/reset.js",
     "test:auth": "node tests/authTest.js",
-    "test:crud": "node tests/crudTest.js"
+    "test:crud": "node tests/crudTest.js",
+    "test:orders": "node tests/ordersInventoryTest.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -9,6 +9,8 @@ const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const supplierRoutes = require('./routes/supplierRoutes');
 const customerRoutes = require('./routes/customerRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const inventoryRoutes = require('./routes/inventoryRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const { sendError } = require('./utils/apiResponse');
 
@@ -54,6 +56,8 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/suppliers', supplierRoutes);
 app.use('/api/v1/customers', customerRoutes);
+app.use('/api/v1/orders', orderRoutes);
+app.use('/api/v1/inventory', inventoryRoutes);
 
 // 404 Route Not Found Handler
 app.use((req, res) => {
