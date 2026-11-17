@@ -6,6 +6,9 @@ require('dotenv').config();
 
 const healthRoutes = require('./routes/healthRoutes');
 const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
+const supplierRoutes = require('./routes/supplierRoutes');
+const customerRoutes = require('./routes/customerRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const { sendError } = require('./utils/apiResponse');
 
@@ -48,6 +51,9 @@ if (process.env.NODE_ENV !== 'test') {
 // Base API v1 Routes
 app.use('/api/v1', healthRoutes);
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/suppliers', supplierRoutes);
+app.use('/api/v1/customers', customerRoutes);
 
 // 404 Route Not Found Handler
 app.use((req, res) => {
