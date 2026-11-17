@@ -1,5 +1,13 @@
 const { Pool } = require('pg');
-require('dotenv').config();
+const path = require('path');
+const dotenv = require('dotenv');
+
+// Load environment from server/.env or root .env.local / .env
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+if (!process.env.DATABASE_URL) {
+  dotenv.config({ path: path.resolve(__dirname, '../../../.env.local') });
+  dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+}
 
 // PostgreSQL connection pool configuration
 const poolConfig = process.env.DATABASE_URL

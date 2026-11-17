@@ -5,6 +5,7 @@ const morgan = require('morgan');
 require('dotenv').config();
 
 const healthRoutes = require('./routes/healthRoutes');
+const authRoutes = require('./routes/authRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const { sendError } = require('./utils/apiResponse');
 
@@ -46,6 +47,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 // Base API v1 Routes
 app.use('/api/v1', healthRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 // 404 Route Not Found Handler
 app.use((req, res) => {
