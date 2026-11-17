@@ -1,12 +1,5 @@
 # StoreOps – Inventory & Order Management System
 
-[![Node.js](https://img.shields.io/badge/Node.js-v20+-68a063?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Express.js](https://img.shields.io/badge/Express.js-v4-000000?logo=express&logoColor=white)](https://expressjs.com/)
-[![React](https://img.shields.io/badge/React-v18+-61dafb?logo=react&logoColor=black)](https://react.dev/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v15+-4169e1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3-38bdf8?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 StoreOps is a centralized, production-grade Inventory and Order Management web application built for small-to-medium retail operations. It replaces manual spreadsheets and error-prone records with a transactional relational database engine, ensuring strict inventory consistency, preventing overselling via row-level locks, logging immutable stock movements, and providing real-time dashboard analytics powered by SQL aggregations.
 
 ---
@@ -20,7 +13,6 @@ StoreOps is a centralized, production-grade Inventory and Order Management web a
 6. [Frontend UI Specification (9 Pages)](#6-frontend-ui-specification-9-pages)
 7. [Installation & Setup Guide](#7-installation--setup-guide)
 8. [Automated Testing & Verification](#8-automated-testing--verification)
-9. [Key Technical Decisions & Interview Highlights](#9-key-technical-decisions--interview-highlights)
 
 ---
 
@@ -338,16 +330,3 @@ The test initializes stock to 5 units and fires **two simultaneous order request
 - **Result:** Exactly 1 order succeeds (201), the other is rejected (409 Conflict), final stock is 1. **Zero overselling**.
 
 ---
-
-## 9. Key Technical Decisions & Interview Highlights
-
-### Why Raw SQL & `pg` Instead of an ORM (Prisma / TypeORM / Sequelize)?
-1. **Explicit Transaction Boundaries:** In an ORM, running `SELECT ... FOR UPDATE` with deterministic ascending ID sorting to prevent deadlocks is obscure or unsupported. Raw SQL with `node-postgres` gives total control over client checkout, `BEGIN`, row locking, and `ROLLBACK`.
-2. **High-Performance Aggregations:** ORMs frequently fetch whole entity graphs into Node.js memory. With explicit SQL queries using `COALESCE(SUM(total_amount), 0)` and `DATE_TRUNC`, PostgreSQL performs all reductions in microsecond-level execution times.
-3. **No Hidden Queries (N+1 Query Elimination):** Writing explicit `LEFT JOIN` and `GROUP BY` queries avoids N+1 query bugs common in ORM abstraction layers.
-
-### Why Salt Work Factor 10 for `bcrypt`?
-`bcrypt` uses adaptive key stretching. A work factor of 10 requires 1024 hashing rounds (~70ms CPU time). This is imperceptible during login, but prevents offline dictionary or rainbow table attacks if a database dump is ever leaked.
-
-### Why Numeric Precision (`NUMERIC(12,2)`) Instead of `FLOAT`?
-Binary floating point types (`FLOAT`, `DOUBLE PRECISION`) suffer from binary representation drift (`0.1 + 0.2 = 0.30000000000000004`). For financial transaction integrity, `NUMERIC(12,2)` guarantees exact decimal arithmetic.
