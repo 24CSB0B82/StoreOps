@@ -12,7 +12,8 @@
     "db:reset": "node src/db/reset.js",
     "test:auth": "node tests/authTest.js",
     "test:crud": "node tests/crudTest.js",
-    "test:orders": "node tests/ordersInventoryTest.js"
+    "test:orders": "node tests/ordersInventoryTest.js",
+    "test:dashboard": "node tests/dashboardTest.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
