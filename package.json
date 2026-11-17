@@ -10,6 +10,7 @@
     "dev:server": "npm run dev --prefix server",
     "dev:client": "npm run dev --prefix client",
     "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run dev:server\" \"npm run dev:client\"",
+    "test": "npm test --prefix server",
     "db:migrate": "npm run migrate --prefix server",
     "db:seed": "npm run seed --prefix server",
     "db:reset": "npm run db:reset --prefix server"
